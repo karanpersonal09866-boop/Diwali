@@ -1,585 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Happy Diwali, Cuttuuuu! ✨</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Custom Tailwind Configuration */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'deep-night': '#100c3a',
-                        'festive-gold': '#FFD700',
-                        'accent-orange': '#ff9900',
-                    },
-                    fontFamily: {
-                        display: ['Playfair Display', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Date Invite 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
-        /* --- Custom CSS for General Styling and Content Animations --- */
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ffe1f0, #ffd6eb, #ffe8f5);
+  background-size: 400% 400%;
+  animation: gradientFlow 8s ease-in-out infinite;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-        /* 1. Background Sparkle Effect */
-        body {
-            background-color: #100c3a;
-        }
+/* Floating hearts */
+.heart {
+  position: absolute;
+  color: #ff5e9c;
+  font-size: 20px;
+  opacity: 0.7;
+  animation: floatUp 6s linear infinite;
+}
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0.7; }
+  100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
+}
 
-        /* 2. Title Glow Animation */
-        .glow-title {
-            text-shadow:
-                0 0 10px rgba(255, 215, 0, 0.8),
-                0 0 20px rgba(255, 153, 0, 0.6),
-                0 0 40px rgba(255, 215, 0, 0.4);
-            animation: pulse-glow 3s infinite alternate;
-        }
+/* Main container */
+.container {
+  background: rgba(255, 255, 255, 0.55);
+  padding: 40px 60px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(255, 100, 160, 0.4);
+  animation: fadeIn 1.5s ease;
+  z-index: 10;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+h1 {
+  font-family: 'Dancing Script', cursive;
+  color: #ff2f7d;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+}
+button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+button:hover { transform: scale(1.1); }
+#yesBtn {
+  background: #ff2f7d;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(255, 47, 125, 0.4);
+}
+#noBtn {
+  background: #fff;
+  color: #ff2f7d;
+  border: 2px solid #ff2f7d;
+}
+#letterBtn {
+  margin-top: 25px;
+  background: #fff0f7;
+  color: #ff2f7d;
+  border: 1px solid #ff2f7d;
+}
 
-        @keyframes pulse-glow {
-            0% {
-                text-shadow:
-                    0 0 5px rgba(255, 215, 0, 0.8),
-                    0 0 10px rgba(255, 153, 0, 0.6);
-            }
-            100% {
-                text-shadow:
-                    0 0 15px rgba(255, 215, 0, 1),
-                    0 0 30px rgba(255, 153, 0, 0.8);
-            }
-        }
+/* Floating message */
+.message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px 60px;
+  border-radius: 25px;
+  color: #ff2f7d;
+  font-size: 2rem;
+  opacity: 0;
+  animation: showMsg 0.8s ease forwards;
+  box-shadow: 0 0 30px rgba(255, 118, 168, 0.6);
+  text-shadow: 0 0 8px rgba(255, 60, 120, 0.5);
+  z-index: 9999;
+}
+@keyframes showMsg {
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
 
-        /* 3. Card Entry Animation (Transition) - Triggered by JS after the envelope opens */
-        .letter-card {
-            opacity: 0;
-            transform: scale(0.9) translateY(20px);
-            transition: all 1s ease-out; /* Increase transition time for a nice reveal */
-        }
-        .letter-card.visible {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* 4. Diya Icon Styling and Animation */
-        .diya-icon {
-            font-size: 2rem;
-            animation: flicker 1s infinite alternate;
-            display: inline-block;
-        }
-
-        @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-
-        /* 5. Letter Content Animation (Staggered Fade-in) */
-        .letter-content-reveal p {
-            opacity: 0;
-            transform: translateY(10px);
-            animation: content-reveal 1s ease-out forwards;
-        }
-
-        @keyframes content-reveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Apply staggered delay for each paragraph for a soft reveal effect */
-        .letter-content-reveal p:nth-child(1) { animation-delay: 1.0s; }
-        .letter-content-reveal p:nth-child(2) { animation-delay: 1.3s; }
-        .letter-content-reveal p:nth-child(3) { animation-delay: 1.6s; }
-        .letter-content-reveal p:nth-child(4) { animation-delay: 1.9s; }
-        .letter-content-reveal p:nth-child(5) { animation-delay: 2.2s; }
-        .letter-content-reveal p:nth-child(6) { animation-delay: 2.5s; }
-        .letter-content-reveal p:nth-child(7) { animation-delay: 2.8s; }
-
-
-        /* Ensure smooth scrolling and prevent horizontal scrollbar on mobile */
-        html {
-            overflow-x: hidden;
-        }
-
-        /* --- Envelope Animation CSS --- */
-
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #100c3a; /* Deep night background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 1s ease-out;
-        }
-
-        .envelope {
-            width: 280px;
-            height: 180px;
-            background-color: #ff9900; /* Accent Orange for the body */
-            border-radius: 12px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4);
-            animation: envelope-scale 0.5s ease-out forwards;
-        }
-
-        @keyframes envelope-scale {
-            0% { transform: scale(0.5); }
-            100% { transform: scale(1); }
-        }
-
-        .envelope:before {
-            /* Back flap */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-top: 90px solid #FFD700; /* Festive Gold */
-            z-index: 2;
-        }
-
-        .envelope-flap {
-            /* Front flap (the one that opens) */
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-bottom: 90px solid #FFD700; /* Festive Gold */
-            transform-origin: top;
-            z-index: 3;
-            animation: open-flap 1.5s ease-in-out 1s forwards; /* Start 1s after scale */
-        }
-
-        @keyframes open-flap {
-            0% { transform: rotateX(0deg); }
-            50% { transform: rotateX(180deg); }
-            100% { transform: rotateX(180deg); opacity: 0; }
-        }
-
-        .envelope-paper {
-            /* The 'letter' inside */
-            position: absolute;
-            width: 90%;
-            height: 80%;
-            background-color: #f7f7f7;
-            top: 10%;
-            left: 5%;
-            border-radius: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transform: translateY(0);
-            z-index: 1;
-            animation: slide-paper 1.5s ease-out 2.5s forwards; /* Start after flap is open */
-        }
-        
-        @keyframes slide-paper {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100px); } /* Slide partially out */
-        }
-
-        .fade-out {
-            opacity: 0 !important;
-        }
-        
-        /* --- Memory Match Game Styling --- */
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            width: 350px; /* fixed size for mobile/small screens */
-            max-width: 90vw;
-            margin: 20px auto;
-            perspective: 1000px;
-        }
-
-        .card {
-            height: 80px;
-            background: none;
-            cursor: pointer;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border-radius: 12px;
-        }
-
-        .card.flip {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        .card-back {
-            background-color: #ff9900; /* Accent Orange */
-            border: 3px solid #FFD700; /* Festive Gold Border */
-            color: #100c3a;
-        }
-
-        .card-front {
-            background-color: #FFD700; /* Festive Gold */
-            color: #100c3a;
-            transform: rotateY(180deg);
-        }
-
-        .card.matched .card-back, .card.matched .card-front {
-             /* Light glow for matched cards */
-            box-shadow: 0 0 10px #FFD700, inset 0 0 5px #FFD700;
-            border-color: #fff;
-        }
-        
-        /* --- Heart Rain Animation --- */
-        #heart-rain-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* Allows clicks to pass through */
-            overflow: hidden;
-            z-index: 990;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 2rem;
-            color: red;
-            opacity: 0;
-            user-select: none;
-            animation: rain 5s linear forwards;
-        }
-
-        @keyframes rain {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(105vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-    </style>
+/* Envelope & Letter */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.45);
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+.envelope-wrap { perspective: 1200px; }
+.envelope {
+  width: 360px;
+  height: 240px;
+  position: relative;
+  transform-style: preserve-3d;
+}
+.envelope .body {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg,#fff 0%,#fffefc 100%);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.envelope .flap {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(135deg,#ffd7e0,#ffbcd2);
+  transform-origin: top center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  z-index: 5;
+}
+.paper {
+  position: absolute;
+  width: calc(100% - 28px);
+  height: calc(100% - 36px);
+  left: 14px;
+  top: 110%;
+  background: #fff;
+  border-radius: 6px;
+  padding: 22px 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  transition: transform 700ms cubic-bezier(.2,.9,.2,1),
+              top 700ms cubic-bezier(.2,.9,.2,1);
+  z-index: 2;
+  overflow: auto;
+}
+.letter-title {
+  margin: 0 0 8px 0;
+  font-family: 'Dancing Script', cursive;
+  color: #ff2f7d;
+  font-size: 1.6rem;
+}
+.letter-text {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.45;
+  font-size: 0.98rem;
+  margin-top: 6px;
+  white-space: pre-wrap;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #888;
+}
+.overlay.show { display: flex; animation: overlayFade 0.3s ease; }
+@keyframes overlayFade { from { opacity: 0; } to { opacity: 1; } }
+.envelope.open .flap {
+  transform: rotateX(180deg);
+  transition: transform 600ms cubic-bezier(.2,.9,.2,1);
+}
+.envelope.open .paper { top: 18px; transform: translateY(0); }
+</style>
 </head>
-<body class="bg-deep-night min-h-screen flex flex-col items-center p-4 font-sans overflow-x-hidden">
 
-    <!-- 1. ENVELOPE PRELOADER -->
-    <div id="preloader">
-        <div class="envelope">
-            <div class="envelope-flap"></div>
-            <div class="envelope-paper"></div>
-        </div>
+<body>
+  <div class="container">
+    <h1>Dear Princess, Would you like to go on a date with me? 💖</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes!</button>
+      <button id="noBtn">No</button>
     </div>
+    <button id="letterBtn">Letter ✉️</button>
+  </div>
 
-    <!-- 2. MAIN CONTENT (Starts hidden) -->
-    <div id="main-content" class="w-full max-w-4xl text-center pt-8 pb-12 opacity-0 transition-opacity duration-1000">
-
-        <!-- Animated Title -->
-        <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-black text-festive-gold mb-6 glow-title">
-            <span class="diya-icon">🪔</span> Happy Diwali my cuttuuuu<span class="text-red-500">❤️</span> <span class="diya-icon">🪔</span>
-        </h1>
-
-        <p class="text-xl text-white/90 mb-10 font-medium">
-            The festival of lights is brighter because of you.
-        </p>
-
-        <!-- The Letter Card -->
-        <div id="letter-card" class="letter-card bg-white p-6 sm:p-10 rounded-3xl shadow-2xl max-w-xl mx-auto border-4 border-accent-orange/50">
-            <h2 class="font-display text-3xl font-bold text-deep-night mb-4 border-b-2 pb-2 border-accent-orange">
-                My Dearest Princess,
-            </h2>
-            <!-- Letter Content with Staggered Fade-in Animation -->
-            <div id="letter-content" class="text-gray-700 text-lg text-left leading-relaxed space-y-4 letter-content-reveal">
-                <p>
-                    This Diwali feels extra special because of you. The best gift I’ve received this year is your smile, your voice, your care, and your presence in my life.
-                </p>
-                <p>
-                    The way you talk makes everything calm, and the way you smile feels like home.
-                </p>
-                <p>
-                    You’re that one blessing I never saw coming but always needed. Thank you for making my days brighter, just like your smile.
-                </p>
-                <p>
-                    Always remember this boy doesn't want anything from you—just your presence is enough for me to spend my whole life with you. Our so-called "products" will be too happy to see this type of bond of us 😂.
-                </p>
-                <p>
-                    Lastly, I wanna say that I love you too much that every single girl everywhere, anywhere is nothing; the real queen is you who can rule on me and do whatever she feels right.
-                </p>
-                <p class="text-sm italic text-gray-500">
-                    And, wo thappad thoda aur tez maara kro, lgti nhi hai 😂😂. Sorry if kahi bhi I have done wrong, I am always yours.
-                </p>
-                <p class="text-xl font-semibold mt-4 text-center text-red-500">
-                    I lovee youuu❤️❤️
-                </p>
-            </div>
-            
-            <p class="text-right mt-6 font-display text-xl font-bold text-deep-night">
-                Aapka battamiz hubby😉
+  <!-- Envelope & Letter -->
+  <div id="letterOverlay" class="overlay" aria-hidden="true">
+    <div class="envelope-wrap">
+      <div class="envelope">
+        <div class="flap"></div>
+        <div class="body">
+          <div class="paper">
+            <button class="close-btn" id="closeLetter">✕</button>
+            <h3 class="letter-title">Hello Princess</h3>
+            <p class="letter-text">
+Hello Princess — good morning, my love.
+I’m tired after work so I might fall asleep, but I’ll wake up by 8 if I can’t stay up.
+I’m sorry for any time yesterday i maded you angry. It was all my mistake to ruin up both of our mood,
+I’m completely yours pls scold me, tease me, in any type of situation we are in, I will Never say a word. 
+I'm Really Sorry miss.
+Love, your hubby 💖
             </p>
+          </div>
         </div>
-        
-        <!-- Game Button (Updated for visibility) -->
-        <div class="mt-10">
-            <button onclick="showGame()" class="px-8 py-4 bg-deep-night text-white font-display text-2xl font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 border-4 border-festive-gold">
-                A gamee!
-            </button>
-        </div>
-
-        <!-- Decorative Footer -->
-        <div class="mt-12 text-festive-gold text-2xl animate-bounce">
-            🪔 🎆 ✨
-        </div>
-
+      </div>
     </div>
+  </div>
 
-    <!-- 3. GAME CONTAINER (Memory Match - Initially hidden) -->
-    <div id="game-container" class="w-full max-w-4xl text-center py-8 opacity-0 transition-opacity duration-1000 hidden">
-        <h2 class="font-display text-4xl sm:text-5xl font-black text-festive-gold mb-4 glow-title">
-            Diwali Memory Match!
-        </h2>
-        <p class="text-white/90 mb-4 text-xl font-bold">
-            Find all 8 pairs! Moves: <span id="moves-count" class="text-festive-gold">0</span>
-        </p>
+<script>
+/* Floating Hearts */
+function createHearts(){
+  const heart=document.createElement('div');
+  heart.classList.add('heart');
+  heart.innerHTML='💖';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.fontSize=(15+Math.random()*25)+'px';
+  heart.style.animationDuration=(4+Math.random()*3)+'s';
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(),7000);
+}
+setInterval(createHearts,400);
 
-        <!-- The Game Grid will be populated by JavaScript -->
-        <div class="game-grid" id="game-grid">
-            <!-- Cards go here -->
-        </div>
-        
-        <p id="game-status" class="text-white text-2xl mt-4 font-bold"></p>
+/* Buttons behavior */
+const yesBtn=document.getElementById('yesBtn');
+const noBtn=document.getElementById('noBtn');
+yesBtn.addEventListener('click',()=>{
+  const msgs=["Yayyy! 🎉","You made me the happiest 💞","Can't wait for our date! 🌸"];
+  const msg=document.createElement('div');
+  msg.className='message';
+  msg.innerText=msgs[Math.floor(Math.random()*msgs.length)];
+  document.body.appendChild(msg);
+  setTimeout(()=>msg.remove(),3000);
+});
+noBtn.addEventListener('mouseover',()=>{
+  const x=Math.random()*(window.innerWidth-100);
+  const y=Math.random()*(window.innerHeight-100);
+  noBtn.style.position='absolute';
+  noBtn.style.left=x+'px';
+  noBtn.style.top=y+'px';
+});
 
-        <button onclick="initGame()" class="mt-6 px-6 py-3 bg-festive-gold text-deep-night font-bold rounded-full shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105">
-            Start New Game
-        </button>
-    </div>
-    
-    <!-- Heart Rain Container (Hidden until game win) -->
-    <div id="heart-rain-container"></div>
-
-    <script>
-        // --- Letter Animation Orchestration ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const preloader = document.getElementById('preloader');
-            const mainContent = document.getElementById('main-content');
-            const letterCard = document.getElementById('letter-card');
-            
-            // Total time for the envelope animation cycle to finish
-            const totalAnimationTime = 4500; 
-
-            setTimeout(() => {
-                // 1. Fade out the envelope preloader
-                preloader.classList.add('fade-out');
-                
-                // 2. Reveal the main content (after the fade-out transition completes)
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    mainContent.style.opacity = '1';
-
-                    // 3. Trigger the card slide-in animation
-                    // The letter content's staggered animation will begin immediately after this.
-                    setTimeout(() => {
-                        letterCard.classList.add('visible');
-                    }, 200);
-
-                }, 1000); // Wait 1 second for the fade-out transition to complete
-
-            }, totalAnimationTime);
-        });
-
-        // --- Heart Rain Animation Logic ---
-        function startHeartRain() {
-            const container = document.getElementById('heart-rain-container');
-            container.innerHTML = ''; // Clear previous hearts
-
-            const heartCount = 30; // Number of hearts to rain
-
-            for (let i = 0; i < heartCount; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.classList.add('heart');
-                    heart.textContent = '❤️';
-                    
-                    // Random horizontal position (0% to 100%)
-                    heart.style.left = `${Math.random() * 100}vw`; 
-                    
-                    // Random duration (3s to 6s)
-                    const duration = Math.random() * 3 + 3; 
-                    heart.style.animationDuration = `${duration}s`;
-                    
-                    // Random delay to stagger the start
-                    const delay = Math.random() * 2; 
-                    heart.style.animationDelay = `${delay}s`;
-
-                    container.appendChild(heart);
-                    
-                    // Remove heart element after animation finishes to clean up DOM
-                    setTimeout(() => heart.remove(), (duration + delay) * 1000);
-                }, i * 100); // Stagger creation of hearts
-            }
-        }
-        
-        function stopHeartRain() {
-             const container = document.getElementById('heart-rain-container');
-             container.innerHTML = '';
-        }
-        
-        // --- Memory Match Game Logic ---
-        const gameGrid = document.getElementById('game-grid');
-        const movesCountDisplay = document.getElementById('moves-count');
-        const gameStatus = document.getElementById('game-status');
-        
-        const cardValues = ['🪔', '🎆', '✨', '🌸', '🎁', '🧡', '👑', '💖']; // 8 unique festive/love emojis
-        const gameDeck = [...cardValues, ...cardValues]; // 16 cards total
-        
-        let flippedCards = [];
-        let matchedPairs = 0;
-        let moves = 0;
-        let lockBoard = false;
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function initGame() {
-            // Reset game state
-            moves = 0;
-            matchedPairs = 0;
-            lockBoard = false;
-            movesCountDisplay.textContent = moves;
-            gameStatus.textContent = '';
-            gameGrid.innerHTML = '';
-            flippedCards = [];
-            stopHeartRain(); // Clear hearts when starting a new game
-
-            // Shuffle and build the new board
-            const shuffledDeck = shuffle(gameDeck);
-
-            shuffledDeck.forEach((value, index) => {
-                const card = document.createElement('div');
-                card.classList.add('card');
-                card.dataset.value = value;
-                card.dataset.index = index;
-                card.onclick = flipCard;
-
-                const cardBack = document.createElement('div');
-                cardBack.classList.add('card-face', 'card-back');
-                cardBack.textContent = '🪔'; // Default icon for the back of the card
-
-                const cardFront = document.createElement('div');
-                cardFront.classList.add('card-face', 'card-front');
-                cardFront.textContent = value;
-
-                card.appendChild(cardBack);
-                card.appendChild(cardFront);
-                gameGrid.appendChild(card);
-            });
-        }
-
-        function flipCard(event) {
-            const clickedCard = event.currentTarget;
-
-            // Ignore if board is locked, card is already flipped, or already matched
-            if (lockBoard || clickedCard.classList.contains('flip') || clickedCard.classList.contains('matched')) {
-                return;
-            }
-
-            clickedCard.classList.add('flip');
-            flippedCards.push(clickedCard);
-
-            if (flippedCards.length === 2) {
-                // Second card is flipped, check for match
-                lockBoard = true;
-                moves++;
-                movesCountDisplay.textContent = moves;
-                
-                checkForMatch();
-            }
-        }
-
-        function checkForMatch() {
-            const [card1, card2] = flippedCards;
-            const isMatch = card1.dataset.value === card2.dataset.value;
-
-            if (isMatch) {
-                // Cards match!
-                card1.classList.add('matched');
-                card2.classList.add('matched');
-                matchedPairs++;
-                
-                // Unlock board and reset flip tracker immediately
-                resetTurn();
-
-                if (matchedPairs === cardValues.length) {
-                    // WINNING CONDITION
-                    // Updated the winning message as requested!
-                    gameStatus.textContent = `Happyyy Diwaliii Gudduu❤️❤️`;
-                    startHeartRain(); // Start the heart animation!
-                }
-
-            } else {
-                // Cards do NOT match, flip them back after a delay
-                setTimeout(() => {
-                    card1.classList.remove('flip');
-                    card2.classList.remove('flip');
-                    resetTurn();
-                }, 1000); // 1 second delay to see the cards
-            }
-        }
-
-        function resetTurn() {
-            [flippedCards[0], flippedCards[1]] = [null, null]; // Clean up references
-            flippedCards = [];
-            lockBoard = false;
-        }
-
-
-        function showGame() {
-            const mainContent = document.getElementById('main-content');
-            const gameContainer = document.getElementById('game-container');
-
-            // Hide the main content
-            mainContent.style.opacity = '0';
-
-            // Wait for the fade out to complete
-            setTimeout(() => {
-                mainContent.classList.add('hidden');
-                gameContainer.classList.remove('hidden');
-                
-                // Show the game container and start the game after a small delay
-                setTimeout(() => {
-                    gameContainer.style.opacity = '1';
-                    initGame(); // Initialize the new memory game!
-                }, 50);
-
-            }, 1000); // Matches the main-content transition duration
-        }
-    </script>
+/* Letter logic */
+const letterBtn=document.getElementById('letterBtn');
+const overlay=document.getElementById('letterOverlay');
+const envelope=overlay.querySelector('.envelope');
+const closeBtn=document.getElementById('closeLetter');
+letterBtn.addEventListener('click',()=>{
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden','false');
+  setTimeout(()=>{envelope.classList.add('open');},300);
+});
+closeBtn.addEventListener('click',closeLetter);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeLetter();});
+function closeLetter(){
+  envelope.classList.remove('open');
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden','true');
+}
+</script>
 </body>
 </html>
+
