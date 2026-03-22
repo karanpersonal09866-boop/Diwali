@@ -1,287 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Date Invite 💖</title>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <title>For Gargi 💖</title>
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, #ffe1f0, #ffd6eb, #ffe8f5);
-  background-size: 400% 400%;
-  animation: gradientFlow 8s ease-in-out infinite;
-  font-family: 'Poppins', sans-serif;
-  position: relative;
-}
-@keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+    <!-- Aesthetic Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
-/* Floating hearts */
-.heart {
-  position: absolute;
-  color: #ff5e9c;
-  font-size: 20px;
-  opacity: 0.7;
-  animation: floatUp 6s linear infinite;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0) scale(1); opacity: 0.7; }
-  100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
-}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
 
-/* Main container */
-.container {
-  background: rgba(255, 255, 255, 0.55);
-  padding: 40px 60px;
-  border-radius: 25px;
-  backdrop-filter: blur(10px);
-  text-align: center;
-  box-shadow: 0 10px 40px rgba(255, 100, 160, 0.4);
-  animation: fadeIn 1.5s ease;
-  z-index: 10;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to { opacity: 1; transform: scale(1); }
-}
-h1 {
-  font-family: 'Dancing Script', cursive;
-  color: #ff2f7d;
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-}
-button {
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-button:hover { transform: scale(1.1); }
-#yesBtn {
-  background: #ff2f7d;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(255, 47, 125, 0.4);
-}
-#noBtn {
-  background: #fff;
-  color: #ff2f7d;
-  border: 2px solid #ff2f7d;
-}
-#letterBtn {
-  margin-top: 25px;
-  background: #fff0f7;
-  color: #ff2f7d;
-  border: 1px solid #ff2f7d;
-}
+        .container {
+            animation: fadeIn 2s ease-in-out;
+        }
 
-/* Floating message */
-.message {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  background: rgba(255, 255, 255, 0.95);
-  padding: 40px 60px;
-  border-radius: 25px;
-  color: #ff2f7d;
-  font-size: 2rem;
-  opacity: 0;
-  animation: showMsg 0.8s ease forwards;
-  box-shadow: 0 0 30px rgba(255, 118, 168, 0.6);
-  text-shadow: 0 0 8px rgba(255, 60, 120, 0.5);
-  z-index: 9999;
-}
-@keyframes showMsg {
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
 
-/* Envelope & Letter */
-.overlay {
-  position: fixed;
-  inset: 0;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background: rgba(0,0,0,0.45);
-  z-index: 9999;
-  backdrop-filter: blur(5px);
-}
-.envelope-wrap { perspective: 1200px; }
-.envelope {
-  width: 360px;
-  height: 240px;
-  position: relative;
-  transform-style: preserve-3d;
-}
-.envelope .body {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(180deg,#fff 0%,#fffefc 100%);
-  border-radius: 8px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-}
-.envelope .flap {
-  position: absolute;
-  top: -2px;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background: linear-gradient(135deg,#ffd7e0,#ffbcd2);
-  transform-origin: top center;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
-  z-index: 5;
-}
-.paper {
-  position: absolute;
-  width: calc(100% - 28px);
-  height: calc(100% - 36px);
-  left: 14px;
-  top: 110%;
-  background: #fff;
-  border-radius: 6px;
-  padding: 22px 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
-  transition: transform 700ms cubic-bezier(.2,.9,.2,1),
-              top 700ms cubic-bezier(.2,.9,.2,1);
-  z-index: 2;
-  overflow: auto;
-}
-.letter-title {
-  margin: 0 0 8px 0;
-  font-family: 'Dancing Script', cursive;
-  color: #ff2f7d;
-  font-size: 1.6rem;
-}
-.letter-text {
-  font-family: 'Poppins', sans-serif;
-  color: #333;
-  line-height: 1.45;
-  font-size: 0.98rem;
-  margin-top: 6px;
-  white-space: pre-wrap;
-}
-.close-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  color: #888;
-}
-.overlay.show { display: flex; animation: overlayFade 0.3s ease; }
-@keyframes overlayFade { from { opacity: 0; } to { opacity: 1; } }
-.envelope.open .flap {
-  transform: rotateX(180deg);
-  transition: transform 600ms cubic-bezier(.2,.9,.2,1);
-}
-.envelope.open .paper { top: 18px; transform: translateY(0); }
-</style>
+        p {
+            font-size: 22px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .heart {
+            font-size: 30px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>Dear Princess, Would you like to go on a date with me? 💖</h1>
-    <div class="buttons">
-      <button id="yesBtn">Yes!</button>
-      <button id="noBtn">No</button>
-    </div>
-    <button id="letterBtn">Letter ✉️</button>
-  </div>
 
-  <!-- Envelope & Letter -->
-  <div id="letterOverlay" class="overlay" aria-hidden="true">
-    <div class="envelope-wrap">
-      <div class="envelope">
-        <div class="flap"></div>
-        <div class="body">
-          <div class="paper">
-            <button class="close-btn" id="closeLetter">✕</button>
-            <h3 class="letter-title">Hello Princess</h3>
-            <p class="letter-text">
-Hello Princess — good morning, my love.
-I’m tired after work so I might fall asleep, but I’ll wake up by 8 if I can’t stay up.
-I’m sorry for any time yesterday i maded you angry. It was all my mistake to ruin up both of our mood,
-I’m completely yours pls scold me, tease me, in any type of situation we are in, I will Never say a word. 
-I'm Really Sorry miss.
-Love, your hubby 💖
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container">
+    <h1>Gargi 💖</h1>
 
-<script>
-/* Floating Hearts */
-function createHearts(){
-  const heart=document.createElement('div');
-  heart.classList.add('heart');
-  heart.innerHTML='💖';
-  heart.style.left=Math.random()*100+'vw';
-  heart.style.fontSize=(15+Math.random()*25)+'px';
-  heart.style.animationDuration=(4+Math.random()*3)+'s';
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),7000);
-}
-setInterval(createHearts,400);
+    <p>
+        Love you alot yaarrr... <br><br>
+        I honestly can't even think of doing anything without you. <br>
+        You’ve become such an important part of my life 🌸
+    </p>
 
-/* Buttons behavior */
-const yesBtn=document.getElementById('yesBtn');
-const noBtn=document.getElementById('noBtn');
-yesBtn.addEventListener('click',()=>{
-  const msgs=["Yayyy! 🎉","You made me the happiest 💞","Can't wait for our date! 🌸"];
-  const msg=document.createElement('div');
-  msg.className='message';
-  msg.innerText=msgs[Math.floor(Math.random()*msgs.length)];
-  document.body.appendChild(msg);
-  setTimeout(()=>msg.remove(),3000);
-});
-noBtn.addEventListener('mouseover',()=>{
-  const x=Math.random()*(window.innerWidth-100);
-  const y=Math.random()*(window.innerHeight-100);
-  noBtn.style.position='absolute';
-  noBtn.style.left=x+'px';
-  noBtn.style.top=y+'px';
-});
+    <div class="heart">❤️</div>
+</div>
 
-/* Letter logic */
-const letterBtn=document.getElementById('letterBtn');
-const overlay=document.getElementById('letterOverlay');
-const envelope=overlay.querySelector('.envelope');
-const closeBtn=document.getElementById('closeLetter');
-letterBtn.addEventListener('click',()=>{
-  overlay.classList.add('show');
-  overlay.setAttribute('aria-hidden','false');
-  setTimeout(()=>{envelope.classList.add('open');},300);
-});
-closeBtn.addEventListener('click',closeLetter);
-overlay.addEventListener('click',e=>{if(e.target===overlay)closeLetter();});
-function closeLetter(){
-  envelope.classList.remove('open');
-  overlay.classList.remove('show');
-  overlay.setAttribute('aria-hidden','true');
-}
-</script>
 </body>
 </html>
-
